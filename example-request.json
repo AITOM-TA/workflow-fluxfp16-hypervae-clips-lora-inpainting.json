@@ -1,0 +1,436 @@
+{
+  "input": {
+    "workflow": {
+      "20": {
+        "inputs": {
+          "value": 512,
+          "image": [
+            "58",
+            0
+          ],
+          "segs": [
+            "21",
+            0
+          ],
+          "model": [
+            "55",
+            0
+          ],
+          "clip": [
+            "36",
+            0
+          ],
+          "vae": [
+            "37",
+            0
+          ],
+          "positive": [
+            "51",
+            0
+          ],
+          "negative": [
+            "23",
+            0
+          ]
+        },
+        "class_type": "DetailerForEach",
+        "_meta": {
+          "title": "DetailerForEach"
+        }
+      },
+      "21": {
+        "inputs": {
+          "value": false,
+          "mask": [
+            "32",
+            0
+          ]
+        },
+        "class_type": "MaskToSEGS",
+        "_meta": {
+          "title": "MaskToSEGS"
+        }
+      },
+      "23": {
+        "inputs": {
+          "text": "",
+          "clip": [
+            "36",
+            0
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "Negative - Leave Empty"
+        }
+      },
+      "25": {
+        "inputs": {
+          "text": "human face",
+          "image": [
+            "58",
+            0
+          ],
+          "florence2_model": [
+            "68",
+            0
+          ]
+        },
+        "class_type": "Florence2Run",
+        "_meta": {
+          "title": "Florence2Run"
+        }
+      },
+      "27": {
+        "inputs": {
+          "images": [
+            "25",
+            0
+          ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+          "title": "PreviewImage"
+        }
+      },
+      "28": {
+        "inputs": {
+          "filename": "sam2_hiera_base_plus.safetensors"
+        },
+        "class_type": "DownloadAndLoadSAM2Model",
+        "_meta": {
+          "title": "DownloadAndLoadSAM2Model"
+        }
+      },
+      "29": {
+        "inputs": {
+          "value": true,
+          "sam2_model": [
+            "28",
+            0
+          ],
+          "image": [
+            "58",
+            0
+          ],
+          "bboxes": [
+            "30",
+            1
+          ]
+        },
+        "class_type": "Sam2Segmentation",
+        "_meta": {
+          "title": "Sam2Segmentation"
+        }
+      },
+      "30": {
+        "inputs": {
+          "text": "0",
+          "data": [
+            "25",
+            3
+          ]
+        },
+        "class_type": "Florence2toCoordinates",
+        "_meta": {
+          "title": "Florence2toCoordinates"
+        }
+      },
+      "31": {
+        "inputs": {
+          "value": 0.96,
+          "image": [
+            "58",
+            0
+          ],
+          "mask": [
+            "29",
+            0
+          ]
+        },
+        "class_type": "ImageAndMaskPreview",
+        "_meta": {
+          "title": "ImageAndMaskPreview"
+        }
+      },
+      "32": {
+        "inputs": {
+          "value": 10,
+          "mask": [
+            "65",
+            0
+          ]
+        },
+        "class_type": "ImpactGaussianBlurMask",
+        "_meta": {
+          "title": "ImpactGaussianBlurMask"
+        }
+      },
+      "35": {
+        "inputs": {
+          "filename": "flux1-dev.safetensors"
+        },
+        "class_type": "UNETLoader",
+        "_meta": {
+          "title": "UNETLoader"
+        }
+      },
+      "36": {
+        "inputs": {
+          "filename": "t5xxl_fp16.safetensors"
+        },
+        "class_type": "DualCLIPLoader",
+        "_meta": {
+          "title": "DualCLIPLoader"
+        }
+      },
+      "37": {
+        "inputs": {
+          "filename": "diffusion_pytorch_model.safetensors"
+        },
+        "class_type": "VAELoader",
+        "_meta": {
+          "title": "VAELoader"
+        }
+      },
+      "38": {
+        "inputs": {
+          "text": "human face benword3",
+          "clip": [
+            "62",
+            0
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "CLIPTextEncode"
+        }
+      },
+      "40": {
+        "inputs": {
+          "value": [
+            "20",
+            0
+          ]
+        },
+        "class_type": "ImpactControlBridge",
+        "_meta": {
+          "title": "ImpactControlBridge"
+        }
+      },
+      "41": {
+        "inputs": {
+          "filename_prefix": "Flux\\Inpaint\\%date:yyyy-MM-dd%\\segs1_",
+          "images": [
+            "40",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "SaveImage"
+        }
+      },
+      "42": {
+        "inputs": {
+          "mask": [
+            "32",
+            0
+          ]
+        },
+        "class_type": "MaskToImage",
+        "_meta": {
+          "title": "MaskToImage"
+        }
+      },
+      "43": {
+        "inputs": {
+          "images": [
+            "42",
+            0
+          ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+          "title": "PreviewImage"
+        }
+      },
+      "47": {
+        "inputs": {
+          "value": true,
+          "on_true": [
+            "29",
+            0
+          ],
+          "on_false": [
+            "48",
+            1
+          ]
+        },
+        "class_type": "Switch mask [Crystools]",
+        "_meta": {
+          "title": "Switch mask [Crystools]"
+        }
+      },
+      "48": {
+        "inputs": {
+          "image": "WhatsApp Image 2026-01-01 at 11.26.38 (10).jpeg"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+          "title": "LoadImage"
+        }
+      },
+      "51": {
+        "inputs": {
+          "value": 4,
+          "conditioning": [
+            "38",
+            0
+          ]
+        },
+        "class_type": "FluxGuidance",
+        "_meta": {
+          "title": "FluxGuidance"
+        }
+      },
+      "53": {
+        "inputs": {
+          "image": "IMG_0783.jpg"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+          "title": "LoadImage"
+        }
+      },
+      "55": {
+        "inputs": {
+          "value": 1,
+          "model": [
+            "60",
+            0
+          ]
+        },
+        "class_type": "ModelSamplingFlux",
+        "_meta": {
+          "title": "ModelSamplingFlux"
+        }
+      },
+      "58": {
+        "inputs": {
+          "value": true,
+          "image_a": [
+            "71",
+            0
+          ],
+          "image_b": [
+            "48",
+            0
+          ]
+        },
+        "class_type": "easy imageSwitch",
+        "_meta": {
+          "title": "Switch Image"
+        }
+      },
+      "59": {
+        "inputs": {
+          "filename": "benlora3.safetensors",
+          "model": [
+            "35",
+            0
+          ]
+        },
+        "class_type": "LoraLoaderModelOnly",
+        "_meta": {
+          "title": "LoraLoaderModelOnly"
+        }
+      },
+      "60": {
+        "inputs": {
+          "filename": "benlora3.safetensors",
+          "model": [
+            "59",
+            0
+          ]
+        },
+        "class_type": "LoraLoaderModelOnly",
+        "_meta": {
+          "title": "LoraLoaderModelOnly"
+        }
+      },
+      "61": {
+        "inputs": {
+          "images": [
+            "20",
+            0
+          ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+          "title": "PreviewImage"
+        }
+      },
+      "62": {
+        "inputs": {
+          "value": 1.2,
+          "clip": [
+            "36",
+            0
+          ]
+        },
+        "class_type": "CLIPAttentionMultiply",
+        "_meta": {
+          "title": "CLIPAttentionMultiply"
+        }
+      },
+      "63": {
+        "inputs": {
+          "mask": [
+            "47",
+            0
+          ]
+        },
+        "class_type": "InvertMask",
+        "_meta": {
+          "title": "InvertMask"
+        }
+      },
+      "65": {
+        "inputs": {
+          "value": 0,
+          "mask": [
+            "63",
+            0
+          ]
+        },
+        "class_type": "GrowMask",
+        "_meta": {
+          "title": "GrowMask"
+        }
+      },
+      "68": {
+        "inputs": {
+          "filename": "microsoft/Florence-2-base"
+        },
+        "class_type": "DownloadAndLoadFlorence2Model",
+        "_meta": {
+          "title": "DownloadAndLoadFlorence2Model"
+        }
+      },
+      "71": {
+        "inputs": {
+          "value": 1024,
+          "image": [
+            "53",
+            0
+          ]
+        },
+        "class_type": "ImageResizeKJv2",
+        "_meta": {
+          "title": "ImageResizeKJv2"
+        }
+      }
+    }
+  }
+}
